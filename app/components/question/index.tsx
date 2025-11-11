@@ -68,14 +68,31 @@ export default function Question({ value, onChange }: QuestionProps) {
       [QUESTION_IDS.SYNCOPE]: null,
       [QUESTION_IDS.DIZZINESS_LIGHTHEADEDNESS]: null,
     });
+    setCurrentQuestion(QUESTION_IDS.STATE_OF_ALERTNESS);
   };
 
+  const totalQuestions = Object.keys(value).length;
+  const answeredQuestions =
+    currentQuestion === null
+      ? totalQuestions
+      : Object.values(value).filter((answer) => answer !== null).length;
+  const progress = (answeredQuestions / totalQuestions) * 100;
+
   return (
-    <div className="mb-5 rounded-xl border-2 border-gray-300 bg-white p-5">
-      <div className="mb-5 border-b border-gray-300 pb-2.5">
-        <h2 className="m-0 text-xl font-bold text-amber-900">
-          問題 (Question)
-        </h2>
+    <div className="rounded-xl border border-gray-300 bg-white p-5">
+      <div className="pb-3">
+        <h2 className="m-0 text-xl font-bold text-amber-900">Question</h2>
+      </div>
+      <div className="mb-5">
+        <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
+          <div
+            className="h-full bg-amber-500 transition-all duration-300 ease-in-out"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+        <div className="mt-1 text-right text-xs text-gray-600">
+          {answeredQuestions} / {totalQuestions}
+        </div>
       </div>
       <div>
         {questions.map((item) => (

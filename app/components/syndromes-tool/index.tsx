@@ -26,13 +26,9 @@ export function SyndromesTool() {
   });
 
   return (
-    <div className="mx-auto max-w-[1400px] p-5 font-sans">
-      <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-2">
-        <div className="flex flex-col gap-5">
-          <Question onChange={setAnswers} value={answers} />
-          <Prediction answers={answers} />
-        </div>
-      </div>
+    <div className="mx-auto max-w-2xl flex flex-col gap-2 mt-4 mb-5">
+      <Question onChange={setAnswers} value={answers} />
+      <Prediction answers={answers} />
     </div>
   );
 }
