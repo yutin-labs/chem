@@ -1,4 +1,4 @@
-import { QUESTION_IDS, ANSWER_IDS } from "./questions-data";
+import { QUESTION_IDS, ANSWER_IDS } from './questions-data';
 
 export default {
   [QUESTION_IDS.STATE_OF_ALERTNESS]: {

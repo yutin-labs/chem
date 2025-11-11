@@ -1,7 +1,7 @@
-import { useState } from "react";
-import Prediction from "../prediction";
-import { type QuestionAnswer, QUESTION_IDS } from "../question/questions-data";
-import Question from "../question";
+import { useState } from 'react';
+import Prediction from '../prediction';
+import { type QuestionAnswer, QUESTION_IDS } from '../question/questions-data';
+import Question from '../question';
 
 export function SyndromesTool() {
   const [answers, setAnswers] = useState<QuestionAnswer>({

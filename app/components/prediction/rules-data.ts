@@ -1,4 +1,4 @@
-import { QUESTION_IDS, ANSWER_IDS } from "../question/questions-data";
+import { QUESTION_IDS, ANSWER_IDS } from '../question/questions-data';
 
 interface Answer {
   question: QUESTION_IDS;
@@ -6,14 +6,14 @@ interface Answer {
 }
 
 export enum PREDICTION_IDS {
-  IRRITANTGAS = "irritantgas",
-  SOLVENT = "solvent",
-  PESTICIDE = "pesticide",
-  KNOCKDOWN = "knockdown",
-  OPIOID = "opioid",
-  ANTICHOLINERGIC = "anticholinergic",
-  CONVULSANT = "convulsant",
-  OTHERS = "others",
+  IRRITANTGAS = 'irritantgas',
+  SOLVENT = 'solvent',
+  PESTICIDE = 'pesticide',
+  KNOCKDOWN = 'knockdown',
+  OPIOID = 'opioid',
+  ANTICHOLINERGIC = 'anticholinergic',
+  CONVULSANT = 'convulsant',
+  OTHERS = 'others',
 }
 
 interface Rule {

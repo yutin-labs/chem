@@ -1,7 +1,11 @@
-import { useState } from "react";
-import { type QuestionAnswer, QUESTION_IDS, ANSWER_IDS } from "./questions-data";
-import questions from "./questions-data";
-import decision from "./decision";
+import { useState } from 'react';
+import {
+  type QuestionAnswer,
+  QUESTION_IDS,
+  ANSWER_IDS,
+} from './questions-data';
+import questions from './questions-data';
+import decision from './decision';
 
 interface QuestionProps {
   value: QuestionAnswer;
@@ -9,7 +13,9 @@ interface QuestionProps {
 }
 
 export default function Question({ value, onChange }: QuestionProps) {
-  const [currentQuestion, setCurrentQuestion] = useState<QUESTION_IDS | null>(QUESTION_IDS.STATE_OF_ALERTNESS);
+  const [currentQuestion, setCurrentQuestion] = useState<QUESTION_IDS | null>(
+    QUESTION_IDS.STATE_OF_ALERTNESS
+  );
   const handleChange = (id: QUESTION_IDS, answer: ANSWER_IDS) => {
     onChange({
       ...value,
@@ -18,13 +24,19 @@ export default function Question({ value, onChange }: QuestionProps) {
     const decisionTarget = decision[id];
     if (decisionTarget) {
       for (const answerOption of decisionTarget.current_answers) {
-        if (answerOption.answers !== null && answerOption.answers.includes(answer) === false) {
+        if (
+          answerOption.answers !== null &&
+          answerOption.answers.includes(answer) === false
+        ) {
           continue;
         }
         if (answerOption.constraint !== null) {
           for (const constraint of answerOption.constraint) {
             const userAnswer = value[constraint.question];
-            if (userAnswer === null || constraint.answers.includes(userAnswer) === false) {
+            if (
+              userAnswer === null ||
+              constraint.answers.includes(userAnswer) === false
+            ) {
               continue;
             }
           }
@@ -61,11 +73,16 @@ export default function Question({ value, onChange }: QuestionProps) {
   return (
     <div className="mb-5 rounded-xl border-2 border-gray-300 bg-white p-5">
       <div className="mb-5 border-b border-gray-300 pb-2.5">
-        <h2 className="m-0 text-xl font-bold text-amber-900">問題 (Question)</h2>
+        <h2 className="m-0 text-xl font-bold text-amber-900">
+          問題 (Question)
+        </h2>
       </div>
       <div>
         {questions.map((item) => (
-          <div key={item.id} className={`mb-6 flex flex-col gap-4 ${currentQuestion === item.id ? "" : "hidden"}`}>
+          <div
+            key={item.id}
+            className={`mb-6 flex flex-col gap-4 ${currentQuestion === item.id ? '' : 'hidden'}`}
+          >
             <div className="flex items-start gap-4">
               <div className="shrink-0">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-orange-500 text-2xl font-bold text-white">

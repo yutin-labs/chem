@@ -1,24 +1,24 @@
 // 問題名稱映射（英文到中文）
 export const questionNameMap: Record<string, string> = {
-  "State of Alertness": "警覺狀態 (State of Alertness)",
-  "Burning Throat/Nose": "喉嚨/鼻子灼熱 (Burning Throat/Nose)",
-  Wheezing: "喘鳴 (Wheezing)",
-  "Shortness of Breath": "呼吸短促 (Shortness of Breath)",
-  "Wet lungs/Rales": "肺部濕囉音 (Wet lungs/Rales)",
-  Hypoventilation: "換氣不足 (Hypoventilation)",
-  Sweaty: "出汗 (Sweaty)",
-  "Burning Chest Pain": "胸部灼痛 (Burning Chest Pain)",
-  "Irritated or Burning Skin": "皮膚刺激或灼熱 (Irritated or Burning Skin)",
-  Pupil: "瞳孔 (Pupil)",
-  Seizure: "癲癇發作 (Seizure)",
-  "Heart Rate": "心率 (Heart Rate)",
-  "Low Blood Pressure": "低血壓 (Low Blood Pressure)",
-  "Sudden Onset of Unconsciousness":
-    "突然失去意識 (Sudden Onset of Unconsciousness)",
-  "Eye Irritation": "眼睛刺激 (Eye Irritation)",
-  "Mucous Membrane": "黏膜狀態 (Mucous Membrane)",
-  Syncope: "暈厥 (Syncope)",
-  "Dizziness/Lightheadedness": "頭暈/頭重腳輕 (Dizziness/Lightheadedness)",
+  'State of Alertness': '警覺狀態 (State of Alertness)',
+  'Burning Throat/Nose': '喉嚨/鼻子灼熱 (Burning Throat/Nose)',
+  Wheezing: '喘鳴 (Wheezing)',
+  'Shortness of Breath': '呼吸短促 (Shortness of Breath)',
+  'Wet lungs/Rales': '肺部濕囉音 (Wet lungs/Rales)',
+  Hypoventilation: '換氣不足 (Hypoventilation)',
+  Sweaty: '出汗 (Sweaty)',
+  'Burning Chest Pain': '胸部灼痛 (Burning Chest Pain)',
+  'Irritated or Burning Skin': '皮膚刺激或灼熱 (Irritated or Burning Skin)',
+  Pupil: '瞳孔 (Pupil)',
+  Seizure: '癲癇發作 (Seizure)',
+  'Heart Rate': '心率 (Heart Rate)',
+  'Low Blood Pressure': '低血壓 (Low Blood Pressure)',
+  'Sudden Onset of Unconsciousness':
+    '突然失去意識 (Sudden Onset of Unconsciousness)',
+  'Eye Irritation': '眼睛刺激 (Eye Irritation)',
+  'Mucous Membrane': '黏膜狀態 (Mucous Membrane)',
+  Syncope: '暈厥 (Syncope)',
+  'Dizziness/Lightheadedness': '頭暈/頭重腳輕 (Dizziness/Lightheadedness)',
 };
 
 // Rule 類別

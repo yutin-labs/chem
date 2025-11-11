@@ -1,24 +1,26 @@
-import { useState, useEffect } from "react";
-import type { QuestionAnswer } from "../question/questions-data";
-import rules, { PREDICTION_IDS } from "./rules-data";
+import { useState, useEffect } from 'react';
+import type { QuestionAnswer } from '../question/questions-data';
+import rules, { PREDICTION_IDS } from './rules-data';
 
 interface SyndromePredictionProps {
   answers: QuestionAnswer;
 }
 
 const predictionNames = {
-  [PREDICTION_IDS.IRRITANTGAS]: "刺激性氣體症候群 (Irritant Gas Syndrome)",
+  [PREDICTION_IDS.IRRITANTGAS]: '刺激性氣體症候群 (Irritant Gas Syndrome)',
   [PREDICTION_IDS.SOLVENT]:
-    "溶劑、麻醉劑或鎮靜劑症候群 (Solvents, Anesthetics, or Sedatives Syndrome)",
+    '溶劑、麻醉劑或鎮靜劑症候群 (Solvents, Anesthetics, or Sedatives Syndrome)',
   [PREDICTION_IDS.PESTICIDE]:
-    "農藥症候群 (Pesticide Syndrome / Cholinergic / Nerve Agent Toxidrome)",
-  [PREDICTION_IDS.KNOCKDOWN]: "擊倒症候群 (Knockdown Syndrome)",
-  [PREDICTION_IDS.OPIOID]: "鴉片類藥物症候群 (Opioid Syndrome)",
-  [PREDICTION_IDS.ANTICHOLINERGIC]: "抗膽鹼症候群 (Anticholinergic Syndrome)",
-  [PREDICTION_IDS.CONVULSANT]: "抽搐劑症候群 (Convulsant Syndrome)",
+    '農藥症候群 (Pesticide Syndrome / Cholinergic / Nerve Agent Toxidrome)',
+  [PREDICTION_IDS.KNOCKDOWN]: '擊倒症候群 (Knockdown Syndrome)',
+  [PREDICTION_IDS.OPIOID]: '鴉片類藥物症候群 (Opioid Syndrome)',
+  [PREDICTION_IDS.ANTICHOLINERGIC]: '抗膽鹼症候群 (Anticholinergic Syndrome)',
+  [PREDICTION_IDS.CONVULSANT]: '抽搐劑症候群 (Convulsant Syndrome)',
 };
 
-const formalRules = [...rules].sort((a, b) => b.answers.length - a.answers.length);
+const formalRules = [...rules].sort(
+  (a, b) => b.answers.length - a.answers.length
+);
 
 export default function Prediction({ answers }: SyndromePredictionProps) {
   const prediction = formalRules.find((rule) => {
