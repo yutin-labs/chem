@@ -2,6 +2,7 @@
   "name": "chem2",
   "private": true,
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
