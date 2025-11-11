@@ -1,13 +1,13 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import { SyndromesTool } from "../components/syndromes-tool";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Chemical Syndrome Diagnosis" },
+    { name: "description", content: "Chemical syndrome diagnosis system" },
   ];
 }
 
 export default function Home() {
-  return <Welcome />;
+  return <SyndromesTool />;
 }
