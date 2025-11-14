@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { QuestionAnswer } from '../question/questions-data';
 import rules, { PREDICTION_IDS } from './rules-data';
+import RuleCalculator from './rule';
 
 interface SyndromePredictionProps {
   answers: QuestionAnswer;
@@ -37,25 +38,163 @@ const predictions = {
   },
 };
 
-const formalRules = [...rules].sort(
-  (a, b) => b.answers.length - a.answers.length
-);
+const rulesSet = new Set<RuleCalculator>();
+rules.forEach((rule) => {
+  rulesSet.add(new RuleCalculator(rule));
+});
 
-export default function Prediction({ answers }: SyndromePredictionProps) {
-  const prediction = formalRules.find((rule) => {
-    return rule.answers.every((condition) => {
-      const userAnswer = answers[condition.question];
-      return userAnswer !== null && condition.answer === userAnswer;
-    });
+function getPrediction(answers: QuestionAnswer) {
+  let clKnockdown = 0.1;
+  let clsectorxKnockdown = 0;
+  let mutiplierKnockdown = 0;
+  let averageKnockdown = 0;
+  let countKnockdown = 0;
+
+  let clPesticide = 0.1;
+  let clsectorxPesticide = 0;
+  let mutiplierPesticide = 0;
+  let averagePesticide = 0;
+  let countPesticide = 0;
+
+  let clSolvent = 0.1;
+  let clsectorxSolvent = 0;
+  let mutiplierSolvent = 0;
+  let averageSolvent = 0;
+  let countSolvent = 0;
+
+  let clIrritantgas = 0.1;
+  let clsectorxIrritantgas = 0;
+  let mutiplierIrritantgas = 0;
+  let averageIrritantgas = 0;
+  let countIrritantgas = 0;
+
+  let clOpioid = 0.1;
+  let clsectorxOpioid = 0;
+  let mutiplierOpioid = 0;
+  let averageOpioid = 0;
+  let countOpioid = 0;
+
+  let clAnticholinergic = 0.1;
+  let clsectorxAnticholinergic = 0;
+  let mutiplierAnticholinergic = 0;
+  let averageAnticholinergic = 0;
+  let countAnticholinergic = 0;
+
+  let clConvulsant = 0.1;
+  let clsectorxConvulsant = 0;
+  let mutiplierConvulsant = 0;
+  let averageConvulsant = 0;
+  let countConvulsant = 0;
+
+  let multiplierAllsectorX = 0;
+
+  const matchedSet = new Set<RuleCalculator>();
+
+  rulesSet.forEach((rule) => {
+    if (rule.test(answers) === true) {
+      for (const matchedRule of matchedSet) {
+        if (matchedRule.contains(rule.answers)) return;
+        if (rule.contains(matchedRule.answers)) {
+          matchedSet.delete(matchedRule);
+        }
+      }
+      matchedSet.add(rule);
+    }
   });
 
-  const reports = Object.entries(predictions)
+  matchedSet.forEach((rule) => {
+    if (rule.knockdown > 0) {
+      clKnockdown += (rule.knockdown / 10) * rule.multiplier;
+      clsectorxKnockdown += (rule.knockdown / 10) * rule.multiplierSectorX;
+      mutiplierKnockdown += rule.multiplier;
+      averageKnockdown += rule.knockdown;
+      countKnockdown += 1;
+    }
+    if (rule.pesticide > 0) {
+      clPesticide += (rule.pesticide / 10) * rule.multiplier;
+      clsectorxPesticide += (rule.pesticide / 10) * rule.multiplierSectorX;
+      mutiplierPesticide += rule.multiplier;
+      averagePesticide += rule.pesticide;
+      countPesticide += 1;
+    }
+    if (rule.solvent > 0) {
+      clSolvent += (rule.solvent / 10) * rule.multiplier;
+      clsectorxSolvent += (rule.solvent / 10) * rule.multiplierSectorX;
+      mutiplierSolvent += rule.multiplier;
+      averageSolvent += rule.solvent;
+      countSolvent += 1;
+    }
+    if (rule.irritantgas > 0) {
+      clIrritantgas += (rule.irritantgas / 10) * rule.multiplier;
+      clsectorxIrritantgas += (rule.irritantgas / 10) * rule.multiplierSectorX;
+      mutiplierIrritantgas += rule.multiplier;
+      averageIrritantgas += rule.irritantgas;
+      countIrritantgas += 1;
+    }
+    if (rule.opioid > 0) {
+      clOpioid += (rule.opioid / 10) * rule.multiplier;
+      clsectorxOpioid += (rule.opioid / 10) * rule.multiplierSectorX;
+      mutiplierOpioid += rule.multiplier;
+      averageOpioid += rule.opioid;
+      countOpioid += 1;
+    }
+    if (rule.anticholinergic > 0) {
+      clAnticholinergic += (rule.anticholinergic / 10) * rule.multiplier;
+      clsectorxAnticholinergic +=
+        (rule.anticholinergic / 10) * rule.multiplierSectorX;
+      mutiplierAnticholinergic += rule.multiplier;
+      averageAnticholinergic += rule.anticholinergic;
+      countAnticholinergic += 1;
+    }
+    if (rule.convulsant > 0) {
+      clConvulsant += (rule.convulsant / 10) * rule.multiplier;
+      clsectorxConvulsant += (rule.convulsant / 10) * rule.multiplierSectorX;
+      mutiplierConvulsant += rule.multiplier;
+      averageConvulsant += rule.convulsant;
+      countConvulsant += 1;
+    }
+    multiplierAllsectorX += rule.multiplierSectorX;
+  });
+
+  const results = {
+    [PREDICTION_IDS.KNOCKDOWN]:
+      (clKnockdown / mutiplierKnockdown +
+        clsectorxKnockdown / multiplierAllsectorX) /
+        2 || 0,
+    [PREDICTION_IDS.PESTICIDE]:
+      (clPesticide / mutiplierPesticide +
+        clsectorxPesticide / multiplierAllsectorX) /
+        2 || 0,
+    [PREDICTION_IDS.SOLVENT]:
+      (clSolvent / mutiplierSolvent + clsectorxSolvent / multiplierAllsectorX) /
+        2 || 0,
+    [PREDICTION_IDS.IRRITANTGAS]:
+      (clIrritantgas / mutiplierIrritantgas +
+        clsectorxIrritantgas / multiplierAllsectorX) /
+        2 || 0,
+    [PREDICTION_IDS.OPIOID]:
+      (clOpioid / mutiplierOpioid + clsectorxOpioid / multiplierAllsectorX) /
+        2 || 0,
+    [PREDICTION_IDS.ANTICHOLINERGIC]:
+      (clAnticholinergic / mutiplierAnticholinergic +
+        clsectorxAnticholinergic / multiplierAllsectorX) /
+        2 || 0,
+    [PREDICTION_IDS.CONVULSANT]:
+      (clConvulsant / mutiplierConvulsant +
+        clsectorxConvulsant / multiplierAllsectorX) /
+        2 || 0,
+  };
+
+  return Object.entries(predictions)
     .map(([key, text]) => {
-      const id = key as PREDICTION_IDS;
-      const percentage = prediction?.[id] ?? 0;
-      return { id, text, percentage };
+      const percentage = results?.[key as keyof typeof predictions] ?? 0;
+      return { key, text, percentage };
     })
     .sort((a, b) => b.percentage - a.percentage);
+}
+
+export default function Prediction({ answers }: SyndromePredictionProps) {
+  const results = getPrediction(answers);
 
   return (
     <div className="rounded-xl border border-gray-300 bg-gray-700 p-5">
@@ -65,14 +204,12 @@ export default function Prediction({ answers }: SyndromePredictionProps) {
         </h2>
       </div>
       <div className="mb-5 flex flex-col gap-3">
-        {reports.map(({ id, text, percentage }) => {
-          if (id === PREDICTION_IDS.OTHERS) return null;
-
-          const isProbable = percentage >= 50;
-          const isUncertain = percentage < 50;
+        {results.map(({ key, text, percentage }) => {
+          const isProbable = percentage >= 5;
+          const isUncertain = percentage < 5;
 
           return (
-            <div key={id} className="flex flex-col gap-1">
+            <div key={key} className="flex flex-col gap-1">
               <div className="cursor-pointer text-sm text-purple-300 hover:text-purple-500 flex items-end gap-2">
                 <div>↓</div>
                 <div>
@@ -85,19 +222,19 @@ export default function Prediction({ answers }: SyndromePredictionProps) {
                   {isUncertain && (
                     <div
                       className="h-full bg-gray-300 transition-all duration-300 ease-in-out"
-                      style={{ width: `${percentage}%` }}
+                      style={{ width: `${percentage * 10}%` }}
                     ></div>
                   )}
                   {isProbable && (
                     <div
                       className="h-full bg-blue-300 transition-all duration-300 ease-in-out"
-                      style={{ width: `${percentage}%` }}
+                      style={{ width: `${percentage * 10}%` }}
                     ></div>
                   )}
                 </div>
                 <div className="flex justify-between text-sm text-gray-300">
                   <span>0</span>
-                  <span>{(percentage / 10).toFixed(1)}</span>
+                  <span>{percentage.toFixed(1)}</span>
                   <span>10</span>
                 </div>
               </div>

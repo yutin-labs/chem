@@ -13,6 +13,7 @@ interface QuestionProps {
 }
 
 export default function Question({ value, onChange }: QuestionProps) {
+  const [ready, setReady] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState<QUESTION_IDS | null>(
     QUESTION_IDS.STATE_OF_ALERTNESS
   );
@@ -69,6 +70,7 @@ export default function Question({ value, onChange }: QuestionProps) {
       [QUESTION_IDS.DIZZINESS_LIGHTHEADEDNESS]: null,
     });
     setCurrentQuestion(QUESTION_IDS.STATE_OF_ALERTNESS);
+    setReady(false);
   };
 
   const totalQuestions = Object.keys(value).length;
@@ -77,6 +79,38 @@ export default function Question({ value, onChange }: QuestionProps) {
       ? totalQuestions
       : Object.values(value).filter((answer) => answer !== null).length;
   const progress = (answeredQuestions / totalQuestions) * 100;
+
+  if (ready === false) {
+    return (
+      <div className="rounded-xl border border-gray-300 bg-white p-5">
+        <div className="space-y-4 text-gray-700">
+          <div className="rounded-lg bg-yellow-50 border border-yellow-200 p-4">
+            <p className="m-0 font-semibold text-yellow-800 mb-2">
+              ⚠️ 重要提醒
+            </p>
+            <ul className="m-0 pl-5 space-y-2">
+              <li>本工具的設計假定主要的暴露途徑為吸入。</li>
+              <li>本工具聚焦於重症個案。</li>
+              <li>
+                本工具未涵蓋所有可能的化學中毒症候群。暴露於其他化學物質、藥物或毒素的患者，可能不符合目前所包含的任何一種症候群。
+              </li>
+              <li>
+                結果需謹慎解讀，因為其他化學物質、藥物、毒素，或其他醫療狀況也可能模仿這些症候群。
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="mt-6 flex justify-end">
+          <button
+            className="cursor-pointer rounded-md bg-amber-600 px-6 py-3 text-base font-medium text-white transition-all duration-200 hover:bg-amber-600 active:translate-y-px"
+            onClick={() => setReady(true)}
+          >
+            我已閱讀並同意
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="rounded-xl border border-gray-300 bg-white p-5">

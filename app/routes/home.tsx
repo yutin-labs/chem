@@ -68,6 +68,41 @@ export default function Home() {
         </div>
       </div>
       <SyndromesTool />
+      <footer className="mx-auto max-w-2xl p-8 text-center text-sm text-gray-500 border-t mt-8">
+        <p className="mb-2">
+          <span>參考 </span>
+          <a
+            href="https://chemm.hhs.gov/chemmist.htm"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            https://chemm.hhs.gov/chemmist.htm
+          </a>
+          <span> 設計</span>
+        </p>
+        <p className="mb-2">
+          作者：YuTin (
+          <a
+            href="mailto:yutin.dev@gmail.com"
+            className="text-blue-600 hover:underline"
+          >
+            yutin.dev@gmail.com
+          </a>
+          )
+        </p>
+        <p>
+          <span>GitHub: </span>
+          <a
+            href="https://github.com/yutin-labs/chem"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            https://github.com/yutin-labs/chem
+          </a>
+        </p>
+      </footer>
     </>
   );
 }

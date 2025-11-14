@@ -1,6 +1,6 @@
 import { QUESTION_IDS, ANSWER_IDS } from '../question/questions-data';
 
-interface Answer {
+export interface Answer {
   question: QUESTION_IDS;
   answer: ANSWER_IDS;
 }
@@ -16,7 +16,7 @@ export enum PREDICTION_IDS {
   OTHERS = 'others',
 }
 
-interface Rule {
+export interface Rule {
   id: number;
   answers: Answer[];
   [PREDICTION_IDS.IRRITANTGAS]: number;
